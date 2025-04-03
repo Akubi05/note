@@ -304,6 +304,7 @@ gdb -tui ./a.out # 启动 TUI 界面（带有代码和汇编窗口）
 (gdb) info all-registers   # 显示所有寄存器，包括 FP、XMM、SSE
 (gdb) print $rax           # 查看 rax 寄存器
 (gdb) set $eax=0x1234      # 修改 eax 寄存器的值
+
 ```
 
 ---
@@ -315,6 +316,7 @@ gdb -tui ./a.out # 启动 TUI 界面（带有代码和汇编窗口）
 (gdb) disassemble /r main   # 显示十六进制指令
 (gdb) stepi                # 执行一条汇编指令
 (gdb) nexti                # 执行一条汇编指令（不进入调用）
+缩写:disas
 ```
 
 ---
