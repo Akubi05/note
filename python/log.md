@@ -125,3 +125,140 @@ CRITICAL:root:This is a critical message
 
 这些级别帮助开发者根据不同的日志严重性设置适当的记录和过滤机制，以便在开发、调试和生产环境中有效地管理日志输出。
 
+# 2. 举例
+
+```
+#!/usr/bin/env python
+"""
+# File Name: logger.py
+# Description:
+
+"""
+
+import logging
+
+def create_logger(name='', ch=True, fh='', levelname=logging.INFO):
+    logger = logging.getLogger(name)
+    logger.setLevel(levelname)
+    
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # handler 
+    if ch:
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+    if fh:
+        fh = logging.FileHandler(fh, mode='w')
+        fh.setLevel(logging.DEBUG)
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+    return logger
+
+```
+
+这段 Python 代码定义了一个日志记录器 (`logger`) 的创建函数。日志记录器是用来记录程序运行过程中的信息、错误、警告等，这对于调试和跟踪程序的行为非常有用。
+
+### 逐行解释：
+
+```python
+#!/usr/bin/env python
+```
+- 这是一个 **shebang** 行，用来指定 Python 解释器的路径，通常用于 Unix 系统中。`/usr/bin/env python` 会根据环境变量查找 Python 解释器的位置。
+
+```python
+"""
+# File Name: logger.py
+# Description:
+"""
+```
+- 这是一个多行注释，用来说明该文件的文件名和描述。在这个例子中，`Description` 是空的，可能是为了后续添加注释。
+
+```python
+import logging
+```
+- 导入 Python 的 **logging** 模块，它提供了一个灵活的框架来记录程序运行时的日志。
+
+```python
+def create_logger(name='', ch=True, fh='', levelname=logging.INFO):
+```
+- 定义一个名为 `create_logger` 的函数，它用于创建一个配置好的日志记录器（logger）。
+- **参数**：
+  - `name`：指定日志记录器的名称，默认是空字符串（表示根记录器）。如果提供了名称，则会创建一个具名记录器。
+  - `ch`：布尔值，表示是否添加一个 **StreamHandler**（控制台输出）。默认值是 `True`，表示添加。
+  - `fh`：字符串，表示是否添加一个 **FileHandler**（文件输出）。如果提供了文件路径，会将日志输出到该文件。
+  - `levelname`：日志的最低级别，默认是 `logging.INFO`，表示记录信息级别及以上的日志。
+
+```python
+    logger = logging.getLogger(name)
+    logger.setLevel(levelname)
+```
+- 获取或创建一个名为 `name` 的日志记录器。
+- 设置日志记录器的日志级别为 `levelname`（即传入的日志级别，默认为 `INFO`）。日志级别决定了记录哪些级别的日志：
+  - `logging.DEBUG`：调试信息
+  - `logging.INFO`：一般信息
+  - `logging.WARNING`：警告
+  - `logging.ERROR`：错误
+  - `logging.CRITICAL`：严重错误
+
+```python
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+```
+- 创建一个日志格式化器（formatter），定义日志的输出格式。这里设置的格式是：
+  - `%(asctime)s`：时间戳
+  - `%(name)s`：日志记录器的名称
+  - `%(levelname)s`：日志级别（如 INFO, DEBUG, ERROR）
+  - `%(message)s`：日志消息
+
+```python
+    if ch:
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+```
+- 如果 `ch` 为 `True`（默认值），则添加一个 **StreamHandler**（流处理器），它将日志输出到控制台。
+- 设置 `StreamHandler` 的日志级别为 `INFO`，并使用之前定义的 `formatter` 格式化日志输出。
+- 将该处理器添加到 `logger` 上。
+
+```python
+    if fh:
+        fh = logging.FileHandler(fh, mode='w')
+        fh.setLevel(logging.DEBUG)
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+```
+- 如果 `fh` 参数传入了一个文件路径（例如日志文件的路径），则创建一个 **FileHandler**（文件处理器），将日志输出到该文件。
+- 设置文件处理器的日志级别为 `DEBUG`，表示记录所有级别的日志。
+- 同样，设置日志的格式化方式并将该处理器添加到 `logger` 上。
+
+```python
+    return logger
+```
+- 返回配置好的日志记录器 `logger`，可以在后续的代码中使用这个日志记录器来记录日志信息。
+
+### 使用示例：
+
+假设你有如下的文件路径 `log.txt`，你想创建一个同时将日志输出到控制台和文件的日志记录器：
+
+```python
+logger = create_logger(name='my_logger', ch=True, fh='log.txt', levelname=logging.DEBUG)
+
+# 记录不同级别的日志
+logger.debug("This is a debug message")
+logger.info("This is an info message")
+logger.warning("This is a warning message")
+logger.error("This is an error message")
+logger.critical("This is a critical message")
+```
+
+- `debug()`：记录 `DEBUG` 级别的日志。
+- `info()`：记录 `INFO` 级别的日志。
+- `warning()`：记录 `WARNING` 级别的日志。
+- `error()`：记录 `ERROR` 级别的日志。
+- `critical()`：记录 `CRITICAL` 级别的日志。
+
+日志将会同时输出到控制台和 `log.txt` 文件中（如果设置了文件路径）。
+
+### 总结：
+这个 Python 文件定义了一个 `create_logger` 函数，用于创建一个配置好的日志记录器。日志记录器可以输出日志到控制台和文件，并且支持不同的日志级别和格式设置。这个函数非常适合用于日志记录和调试，尤其是在大规模应用程序中。
