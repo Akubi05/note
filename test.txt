@@ -1,0 +1,23 @@
+# Data manipulation
+import pandas as pd # for data manipulation
+import numpy as np # for data manipulation
+
+# Visualization
+import plotly.express as px # for data visualization
+import matplotlib.pyplot as plt # for showing handwritten digits
+
+# Skleran
+from sklearn.datasets import load_digits # for MNIST data
+from sklearn.model_selection import train_test_split # for splitting data into train and test samples
+
+# UMAP dimensionality reduction
+from umap import UMAP
+
+---------------------------------------------------------------------------
+ImportError                               Traceback (most recent call last)
+Cell In[1], line 14
+     11 from sklearn.model_selection import train_test_split # for splitting data into train and test samples
+     13 # UMAP dimensionality reduction
+---> 14 from umap import UMAP
+
+ImportError: cannot import name 'UMAP' from 'umap' (/home/luke/anaconda3/envs/scDML/lib/python3.8/site-packages/umap/__init__.py)
