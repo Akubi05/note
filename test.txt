@@ -1,1 +1,20 @@
-在h5ad中n_obs、n_vars、obsm、uns是什么的缩写
+# scDML train dataset with Triplet loss
+If you want to merge dataset to expected number of cluster, you can call
+```
+embedding=scdml.train(expect_num_cluster=expect_num_cluster)
+```
+
+Otherwise if the number of cluster is unknown, you can call
+```
+embedding=scdml.train(expect_num_cluster=None)
+```
+in this case, scDML will apply a spetral clustering method to estimate the number of cluster in dataset
+
+# delete trained model to retrain the model
+if os.path.isfile(os.path.join(scdml.save_dir,"scDML_model.pkl")):
+    os.remove(os.path.join(scdml.save_dir,"scDML_model.pkl"))
+    
+features=scdml.train(expect_num_cluster=None)
+adata.obsm["X_emb"]=features
+adata.obs["reassign_cluster"]=scdml.train_label.astype(int).astype(str)
+adata.obs["reassign_cluster"]=adata.obs["reassign_cluster"].astype("category")
