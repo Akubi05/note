@@ -83,3 +83,15 @@ benchmarking / ˈbentʃmɑːkɪŋ /
 
 manuscript / ˈmænjuskrɪpt /
 稿件;手稿
+
+concretely 
+/ˈkɒŋkriːtli/
+adv. 具体地
+
+Augmentation 
+/ˌɔːɡmenˈteɪʃ(ə)n/
+n.
+增大，增多；增加物；（主旋律的）延长；（作为殊荣而对纹章进行的）扩充
+
+Scale
+crop
