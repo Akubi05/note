@@ -95,3 +95,7 @@ n.
 
 Scale
 crop
+
+silhouette
+/ˌsɪluˈet/
+n.轮廓
